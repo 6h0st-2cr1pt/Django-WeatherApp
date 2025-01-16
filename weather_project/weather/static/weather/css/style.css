@@ -6,9 +6,10 @@
 }
 
 body {
-    background-color: var(--bg-dark);
+    background-color: var(--bg-darker);
     color: #fff;
     font-family: 'Inter', sans-serif;
+    min-height: 100vh;
 }
 
 .bg-darker {
@@ -23,29 +24,6 @@ body {
     color: var(--purple) !important;
 }
 
-/* Sidebar Styles */
-.sidebar {
-    background-color: var(--bg-darker);
-    width: 80px;
-}
-
-.sidebar .nav-link {
-    color: var(--text-muted);
-    padding: 0.5rem;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-}
-
-.sidebar .nav-link:hover,
-.sidebar .nav-link.active {
-    color: var(--purple);
-    background-color: rgba(139, 92, 246, 0.1);
-}
-
-.sidebar .nav-link i {
-    font-size: 1.25rem;
-}
-
 /* Header Styles */
 .header {
     background-color: var(--bg-darker);
@@ -53,6 +31,7 @@ body {
 
 .search-form .form-control {
     color: #fff;
+    font-size: 1rem;
 }
 
 .search-form .form-control::placeholder {
@@ -61,18 +40,19 @@ body {
 
 .search-form .form-control:focus {
     box-shadow: none;
+    background-color: transparent;
+    color: #fff;
 }
 
-.avatar {
-    width: 40px;
-    height: 40px;
-    object-fit: cover;
+.search-form .input-group-text {
+    color: var(--text-muted);
 }
 
 /* Weather Content Styles */
 .card {
     border: none;
     border-radius: 16px;
+    background-color: #1a1f25 !important;
 }
 
 .weather-icon {
@@ -80,19 +60,15 @@ body {
     height: 64px;
 }
 
-.forecast-icon {
-    width: 40px;
-    height: 40px;
-}
-
-.forecast-item {
-    flex: 1;
-    min-width: 80px;
-}
-
 .highlight-card {
     height: 100%;
     border-radius: 12px !important;
+    background-color: var(--bg-darker) !important;
+}
+
+.highlight-card h6 {
+    color: var(--text-muted);
+    font-size: 0.875rem;
 }
 
 .highlight-card .value {
@@ -101,25 +77,14 @@ body {
     margin-top: 0.5rem;
 }
 
-.city-card {
-    border-radius: 12px !important;
-}
-
-.city-card .temp {
-    font-size: 2rem;
-    font-weight: 600;
-    margin: 0.5rem 0;
-}
-
-.city-weather-icon {
-    width: 48px;
-    height: 48px;
-    margin-top: -1rem;
-}
-
 .temp-switch .btn {
     padding: 0.25rem 0.75rem;
     border-radius: 20px;
+}
+
+.badge {
+    padding: 0.5rem 1rem;
+    font-weight: normal;
 }
 
 /* Custom Scrollbar */
@@ -142,12 +107,12 @@ body {
 
 /* Responsive Adjustments */
 @media (max-width: 992px) {
-    .sidebar {
-        width: 60px;
+    .weather-content {
+        padding: 1rem;
     }
     
-    .forecast-item {
-        min-width: 60px;
+    .highlight-card {
+        margin-bottom: 1rem;
     }
 }
 

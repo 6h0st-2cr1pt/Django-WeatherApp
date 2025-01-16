@@ -4,60 +4,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather App</title>
+    <title>SkySense Weather</title>
+    <link rel="stylesheet" href="{% static 'weather/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'weather/css/style.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body>
-    <div class="container">
-        <div class="logo">
-            <img src="{% static 'weather/images/logo.png' %}" alt="Weather App Logo">
-        </div>
-        <h1>Weather App</h1>
-        <form method="post">
-            {% csrf_token %}
-            <input type="text" name="city" placeholder="Enter city name" required>
-            <button type="submit">Get Weather</button>
-        </form>
-        {% if error %}
-            <p class="error">{{ error }}</p>
-        {% endif %}
-        {% if weather %}
-            <div class="weather-info">
-                <h2>{{ weather.city }}</h2>
-                <div class="weather-icon">
-                    <img src="http://openweathermap.org/img/wn/{{ weather.icon }}@2x.png" alt="{{ weather.description }}">
+<body class="bg-dark">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-auto px-0 bg-darker min-vh-100">
+                <div class="sidebar d-flex flex-column align-items-center py-4">
+                    <div class="brand mb-4">
+                        <i class="fas fa-bolt text-purple fs-4"></i>
+                        <span class="ms-2 text-white">SkySense</span>
+                    </div>
+                    <nav class="nav flex-column gap-4">
+                        <a href="#" class="nav-link active"><i class="fas fa-th-large"></i></a>
+                        <a href="#" class="nav-link"><i class="fas fa-chart-pie"></i></a>
+                        <a href="#" class="nav-link"><i class="fas fa-map-marker-alt"></i></a>
+                        <a href="#" class="nav-link"><i class="fas fa-credit-card"></i></a>
+                        <a href="#" class="nav-link"><i class="fas fa-cog"></i></a>
+                    </nav>
                 </div>
-                <p>{{ weather.description|title }}</p>
-                <div class="weather-details">
-                    <div class="weather-item">
-                        <i class="fas fa-temperature-high"></i>
-                        <span>Temperature: {{ weather.temperature }}°C</span>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col px-0">
+                <!-- Header -->
+                <header class="header py-3 px-4">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <form method="post" class="search-form">
+                                {% csrf_token %}
+                                <div class="input-group">
+                                    <span class="input-group-text bg-transparent border-0">
+                                        <i class="fas fa-search text-muted"></i>
+                                    </span>
+                                    <input type="text" name="city" class="form-control bg-transparent border-0" placeholder="Search City...">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-auto">
+                            <div class="user-profile d-flex align-items-center">
+                                <img src="{% static 'weather/images/avatar.png' %}" alt="User" class="avatar rounded-circle">
+                                <span class="ms-2 text-white">User Name</span>
+                                <i class="fas fa-chevron-down ms-2 text-muted"></i>
+                            </div>
+                        </div>
                     </div>
-                    <div class="weather-item">
-                        <i class="fas fa-temperature-low"></i>
-                        <span>Feels Like: {{ weather.feels_like }}°C</span>
-                    </div>
-                    <div class="weather-item">
-                        <i class="fas fa-tint"></i>
-                        <span>Humidity: {{ weather.humidity }}%</span>
-                    </div>
-                    <div class="weather-item">
-                        <i class="fas fa-wind"></i>
-                        <span>Wind Speed: {{ weather.wind_speed }} m/s</span>
-                    </div>
-                    <div class="weather-item">
-                        <i class="fas fa-sun"></i>
-                        <span>Sunrise: {{ weather.sunrise }}</span>
-                    </div>
-                    <div class="weather-item">
-                        <i class="fas fa-moon"></i>
-                        <span>Sunset: {{ weather.sunset }}</span>
+                </header>
+
+                <!-- Weather Content -->
+                <div class="weather-content p-4">
+                    <div class="row">
+                        <!-- Main Weather Card -->
+                        <div class="col-lg-8 mb-4">
+                            <div class="card bg-darker text-white">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <div class="location mb-2">
+                                                <span class="badge bg-purple">India</span>
+                                            </div>
+                                            <h1 class="display-1 mb-0">{{ weather.temperature }}°C</h1>
+                                            <p class="text-muted">High: {{ weather.temp_max }}° Low: {{ weather.temp_min }}°</p>
+                                            <div class="weather-condition d-flex align-items-center">
+                                                <img src="http://openweathermap.org/img/wn/{{ weather.icon }}@2x.png" alt="{{ weather.description }}" class="weather-icon">
+                                                <span class="ms-2">{{ weather.description|title }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="temp-switch">
+                                            <button class="btn btn-dark active">F</button>
+                                            <button class="btn btn-light">C</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Hourly Forecast -->
+                                    <div class="hourly-forecast mt-4">
+                                        <div class="d-flex justify-content-between">
+                                            {% for hour in "123456"|make_list %}
+                                            <div class="forecast-item text-center">
+                                                <div class="time mb-2">{{ hour }}PM</div>
+                                                <img src="http://openweathermap.org/img/wn/{{ weather.icon }}@2x.png" alt="weather" class="forecast-icon">
+                                                <div class="temp">20°</div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Weather Highlights -->
+                        <div class="col-lg-4">
+                            <div class="card bg-darker text-white mb-4">
+                                <div class="card-body">
+                                    <h5 class="card-title">Today Highlight</h5>
+                                    <div class="row g-3">
+                                        <div class="col-6">
+                                            <div class="highlight-card p-3 bg-dark rounded">
+                                                <h6>UV Index</h6>
+                                                <i class="fas fa-sun fs-1 text-warning"></i>
+                                                <div class="value">{{ weather.uvi|default:"6.5" }}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="highlight-card p-3 bg-dark rounded">
+                                                <h6>Wind Status</h6>
+                                                <i class="fas fa-wind fs-1 text-info"></i>
+                                                <div class="value">{{ weather.wind_speed }} m/s</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="highlight-card p-3 bg-dark rounded">
+                                                <h6>Sunrise & Sunset</h6>
+                                                <div class="sun-times">
+                                                    <div><i class="fas fa-sun text-warning"></i> {{ weather.sunrise }}</div>
+                                                    <div><i class="fas fa-moon text-info"></i> {{ weather.sunset }}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="highlight-card p-3 bg-dark rounded">
+                                                <h6>Humidity</h6>
+                                                <i class="fas fa-tint fs-1 text-primary"></i>
+                                                <div class="value">{{ weather.humidity }}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Other Cities -->
+                            <div class="card bg-darker text-white">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h5 class="card-title mb-0">Other Cities</h5>
+                                        <a href="#" class="text-muted">Show All</a>
+                                    </div>
+                                    <div class="row g-3">
+                                        <div class="col-6">
+                                            <div class="city-card p-3 bg-dark rounded">
+                                                <h6>USA</h6>
+                                                <div class="temp">14°</div>
+                                                <img src="http://openweathermap.org/img/wn/02d@2x.png" alt="weather" class="city-weather-icon">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="city-card p-3 bg-dark rounded">
+                                                <h6>Dubai - UAE</h6>
+                                                <div class="temp">27°</div>
+                                                <img src="http://openweathermap.org/img/wn/01d@2x.png" alt="weather" class="city-weather-icon">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        {% endif %}
+        </div>
     </div>
+
+    <script src="{% static 'weather/js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>
 

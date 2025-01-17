@@ -4,112 +4,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Dashboard</title>
+    <title>Comprehensive Weather Dashboard</title>
     <link rel="stylesheet" href="{% static 'weather/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'weather/css/style.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <div class="weather-card">
-            <!-- Temperature and Location -->
-            <div class="text-center mb-4">
-                <h1 class="temperature">{{ weather.temperature|default:"26" }}°</h1>
-                <h2 class="city">{{ weather.city|default:"Bacolod" }}</h2>
-                
-                <!-- Search Form -->
-                <form method="post" class="search-form mt-3">
-                    {% csrf_token %}
-                    <div class="input-group">
-                        <input type="text" name="city" class="form-control" placeholder="Search city...">
-                        <button type="submit" class="btn btn-primary">Search</button>
+    <div class="container-fluid vh-100 d-flex flex-column">
+        <div class="row flex-grow-1">
+            <div class="col-md-6 d-flex flex-column">
+                <div class="glass-card flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center p-3">
+                    <h1 class="temperature display-1 mb-0" data-kelvin="{{ weather.temperature|default:'298.48' }}">25.33°C</h1>
+                    <h2 class="city h2 mb-3">{{ weather.city|default:"Zocca" }}, {{ weather.country|default:"IT" }}</h2>
+                    <div class="weather-icon mb-2">
+                        <img src="http://openweathermap.org/img/wn/{{ weather.icon|default:'10d' }}@2x.png" alt="{{ weather.description }}" class="img-fluid">
                     </div>
-                </form>
-            </div>
-
-            <!-- Weather Details Grid -->
-            <div class="row g-4 mb-4">
-                <!-- Feels Like -->
-                <div class="col-6">
-                    <div class="weather-item">
-                        <h3>Feels Like</h3>
-                        <p>{{ weather.feels_like|default:"26" }}°</p>
-                    </div>
-                </div>
-
-                <!-- Humidity -->
-                <div class="col-6">
-                    <div class="weather-item">
-                        <h3>Humidity</h3>
-                        <p>{{ weather.humidity|default:"78" }}%</p>
-                    </div>
-                </div>
-
-                <!-- Wind Speed -->
-                <div class="col-6">
-                    <div class="weather-item">
-                        <h3>Wind Speed</h3>
-                        <p>{{ weather.wind_speed|default:"7.5" }} m/s</p>
-                    </div>
-                </div>
-
-                <!-- Pressure -->
-                <div class="col-6">
-                    <div class="weather-item">
-                        <h3>Pressure</h3>
-                        <p>{{ weather.pressure|default:"29.85" }} inHg</p>
+                    <p class="weather-description h3">{{ weather.description|default:"moderate rain"|title }}</p>
+                    <p class="h4 mt-3">
+                        High: <span class="temp-max" data-kelvin="{{ weather.temp_max|default:'300.05' }}">26.9°C</span> | 
+                        Low: <span class="temp-min" data-kelvin="{{ weather.temp_min|default:'297.56' }}">24.41°C</span>
+                    </p>
+                    <div class="mt-3">
+                        <button class="btn btn-outline-light active" data-unit="C">°C</button>
+                        <button class="btn btn-outline-light" data-unit="F">°F</button>
+                        <button class="btn btn-outline-light" data-unit="K">K</button>
                     </div>
                 </div>
             </div>
-
-            <!-- Sunrise/Sunset -->
-            <div class="sun-times mb-4">
-                <div class="d-flex justify-content-around">
-                    <div class="text-center">
-                        <i class="fas fa-sun"></i>
-                        <p>{{ weather.sunrise|default:"5:45 AM" }}</p>
+            <div class="col-md-6">
+                <div class="row h-100">
+                    <div class="col-6 d-flex">
+                        <div class="glass-card w-100 d-flex flex-column justify-content-center p-3">
+                            <i class="fas fa-thermometer-half fa-2x mb-2"></i>
+                            <h3 class="h4 mb-2">Feels Like</h3>
+                            <p class="mb-0 display-6 feels-like" data-kelvin="{{ weather.feels_like|default:'298.74' }}">25.59°C</p>
+                        </div>
                     </div>
-                    <div class="text-center">
-                        <i class="fas fa-moon"></i>
-                        <p>{{ weather.sunset|default:"5:52 PM" }}</p>
+                    <div class="col-6 d-flex">
+                        <div class="glass-card w-100 d-flex flex-column justify-content-center p-3">
+                            <i class="fas fa-tint fa-2x mb-2"></i>
+                            <h3 class="h4 mb-2">Humidity</h3>
+                            <p class="mb-0 display-6">{{ weather.humidity|default:"64" }}%</p>
+                        </div>
+                    </div>
+                    <div class="col-6 d-flex">
+                        <div class="glass-card w-100 d-flex flex-column justify-content-center p-3">
+                            <i class="fas fa-wind fa-2x mb-2"></i>
+                            <h3 class="h4 mb-2">Wind</h3>
+                            <p class="mb-0 h5">{{ weather.wind_speed|default:"0.62" }} m/s</p>
+                            <p class="mb-0 h6">{{ weather.wind_direction|default:"North" }} ({{ weather.wind_deg|default:"349" }}°)</p>
+                            <p class="mb-0 h6">Gusts: {{ weather.wind_gust|default:"1.18" }} m/s</p>
+                        </div>
+                    </div>
+                    <div class="col-6 d-flex">
+                        <div class="glass-card w-100 d-flex flex-column justify-content-center p-3">
+                            <i class="fas fa-compress-alt fa-2x mb-2"></i>
+                            <h3 class="h4 mb-2">Pressure</h3>
+                            <p class="mb-0 display-6">{{ weather.pressure|default:"1015" }} hPa</p>
+                        </div>
+                    </div>
+                    <div class="col-6 d-flex">
+                        <div class="glass-card w-100 d-flex flex-column justify-content-center p-3">
+                            <i class="fas fa-sun fa-2x mb-2"></i>
+                            <h3 class="h4 mb-2">Sunrise</h3>
+                            <p class="mb-0 h5">{{ weather.sunrise|default:"04:36:27" }}</p>
+                        </div>
+                    </div>
+                    <div class="col-6 d-flex">
+                        <div class="glass-card w-100 d-flex flex-column justify-content-center p-3">
+                            <i class="fas fa-moon fa-2x mb-2"></i>
+                            <h3 class="h4 mb-2">Sunset</h3>
+                            <p class="mb-0 h5">{{ weather.sunset|default:"17:57:28" }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Weather Description -->
-            <div class="weather-description mb-4">
-                <h3>Weather</h3>
-                <p>{{ weather.description|title|default:"Clear Sky" }}</p>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-4">
+                <div class="glass-card p-3">
+                    <h3 class="h4 mb-2">Additional Info</h3>
+                    <p class="mb-1">Clouds: {{ weather.clouds|default:"100" }}% ({{ weather.cloud_name|default:"overcast clouds" }})</p>
+                    <p class="mb-1">Visibility: {{ weather.visibility|default:"10000" }} m</p>
+                    <p class="mb-1">Precipitation: {{ weather.precipitation|default:"3.37" }} mm/h ({{ weather.precipitation_mode|default:"rain" }})</p>
+                </div>
             </div>
-
-            <!-- Temperature Toggle -->
-            <div class="temp-toggle mb-4">
-                <button class="btn btn-outline-light active">°C</button>
-                <button class="btn btn-outline-light">°F</button>
+            <div class="col-md-4">
+                <div class="glass-card p-3">
+                    <h3 class="h4 mb-2">Location</h3>
+                    <p class="mb-1">Longitude: {{ weather.lon|default:"10.99" }}</p>
+                    <p class="mb-1">Latitude: {{ weather.lat|default:"44.34" }}</p>
+                    <p class="mb-1">Timezone: UTC {{ weather.timezone|default:"+02:00" }}</p>
+                </div>
             </div>
-
-            <!-- Location Details -->
-            <div class="location-details mb-4">
-                <p>Longitude: {{ weather.lon|default:"" }}</p>
-                <p>Latitude: {{ weather.lat|default:"" }}</p>
-            </div>
-
-            <!-- Attribution -->
-            <div class="attribution">
-                <p class="powered-by">Powered By OpenWeather</p>
-                <div class="dev-info">
-                    <p>Dev: Jonald Sabordo</p>
-                    <p>API: OpenWeather</p>
-                    <p>Date: {% now "F j Y" %}</p>
-                    <p>Type: Application</p>
-                    <p>Status: {{ weather.status|default:"404" }}</p>
-                    <p>Time: {% now "h:i A" %}</p>
+            <div class="col-md-4">
+                <div class="glass-card p-3">
+                    <h3 class="h4 mb-2">About</h3>
+                    <p class="mb-1">Developer: Jonald Sabordo</p>
+                    <p class="mb-1">API: OpenWeather</p>
+                    <p class="mb-1">Date: {% now "F j, Y" %}</p>
+                    <p class="mb-1">Time: {% now "H:i" %}</p>
+                    <p class="mb-1">Last Update: {{ weather.last_update|default:"2022-08-30 14:45:57" }}</p>
                 </div>
             </div>
         </div>
     </div>
 
     <script src="{% static 'weather/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'weather/js/weather.js' %}"></script>
 </body>
 </html>
 

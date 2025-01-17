@@ -1,118 +1,142 @@
-:root {
-    --bg-darker: #0f1218;
-    --bg-dark: #1a1f25;
-    --purple: #8b5cf6;
-    --text-muted: #64748b;
-}
-
 body {
-    background-color: var(--bg-darker);
-    color: #fff;
-    font-family: 'Inter', sans-serif;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    font-family: 'Arial', sans-serif;
     min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 2rem 0;
 }
 
-.bg-darker {
-    background-color: var(--bg-darker) !important;
+.container {
+    max-width: 600px;
 }
 
-.bg-purple {
-    background-color: var(--purple) !important;
+.weather-card {
+    background-color: #242424;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.text-purple {
-    color: var(--purple) !important;
+.temperature {
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 0;
 }
 
-/* Header Styles */
-.header {
-    background-color: var(--bg-darker);
+.city {
+    font-size: 2rem;
+    margin-bottom: 1rem;
 }
 
 .search-form .form-control {
-    color: #fff;
-    font-size: 1rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #ffffff;
+    padding: 0.75rem;
 }
 
 .search-form .form-control::placeholder {
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.5);
 }
 
-.search-form .form-control:focus {
-    box-shadow: none;
-    background-color: transparent;
-    color: #fff;
-}
-
-.search-form .input-group-text {
-    color: var(--text-muted);
-}
-
-/* Weather Content Styles */
-.card {
+.search-form .btn {
+    background-color: #007bff;
     border: none;
-    border-radius: 16px;
-    background-color: #1a1f25 !important;
 }
 
-.weather-icon {
-    width: 64px;
-    height: 64px;
+.weather-item {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
 }
 
-.highlight-card {
-    height: 100%;
-    border-radius: 12px !important;
-    background-color: var(--bg-darker) !important;
+.weather-item h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.7);
 }
 
-.highlight-card h6 {
-    color: var(--text-muted);
-    font-size: 0.875rem;
-}
-
-.highlight-card .value {
+.weather-item p {
     font-size: 1.5rem;
-    font-weight: 600;
-    margin-top: 0.5rem;
+    margin-bottom: 0;
+    font-weight: bold;
 }
 
-.temp-switch .btn {
-    padding: 0.25rem 0.75rem;
-    border-radius: 20px;
+.sun-times {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 1rem;
 }
 
-.badge {
-    padding: 0.5rem 1rem;
-    font-weight: normal;
+.sun-times i {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-    width: 8px;
+.sun-times p {
+    margin-bottom: 0;
 }
 
-::-webkit-scrollbar-track {
-    background: var(--bg-darker);
+.weather-description {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
 }
 
-::-webkit-scrollbar-thumb {
-    background: var(--text-muted);
-    border-radius: 4px;
+.weather-description h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.7);
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background: var(--purple);
+.temp-toggle {
+    text-align: center;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 992px) {
-    .weather-content {
+.temp-toggle .btn {
+    margin: 0 0.25rem;
+}
+
+.location-details {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.location-details p {
+    margin-bottom: 0.5rem;
+}
+
+.attribution {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.powered-by {
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+.dev-info p {
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 576px) {
+    .weather-card {
         padding: 1rem;
     }
-    
-    .highlight-card {
-        margin-bottom: 1rem;
+
+    .temperature {
+        font-size: 3rem;
+    }
+
+    .city {
+        font-size: 1.5rem;
     }
 }
 

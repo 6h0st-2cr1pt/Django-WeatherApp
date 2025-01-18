@@ -10,7 +10,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="container-fluid vh-100 d-flex flex-column">
+    <div class="container-fluid vh-100 d-flex flex-column mt-2">
+        <div class="row-md-6">
+            <div class="glass-card p-3">
+                <form method="post" class="search-form" id="citySearchForm">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <input type="text" name="city" id="cityInput" class="form-control form-control-lg" placeholder="Search city...">
+                        <button type="submit" class="btn btn-primary btn-lg">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
         <div class="row flex-grow-1">
             <div class="col-md-6 d-flex flex-column">
                 <div class="glass-card flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center p-3">
@@ -25,9 +36,8 @@
                         Low: <span class="temp-min" data-kelvin="{{ weather.temp_min|default:'297.56' }}">24.41°C</span>
                     </p>
                     <div class="mt-3">
-                        <button class="btn btn-outline-light active" data-unit="C">°C</button>
+                        <button class="btn btn-outline-light active" data-unit="K">°C</button>
                         <button class="btn btn-outline-light" data-unit="F">°F</button>
-                        <button class="btn btn-outline-light" data-unit="K">K</button>
                     </div>
                 </div>
             </div>
@@ -52,6 +62,12 @@
                             <i class="fas fa-wind fa-2x mb-2"></i>
                             <h3 class="h4 mb-2">Wind</h3>
                             <p class="mb-0 h5">{{ weather.wind_speed|default:"0.62" }} m/s</p>
+                        </div>
+                    </div>
+                    <div class="col-6 d-flex">
+                        <div class="glass-card w-100 d-flex flex-column justify-content-center p-3">
+                            <i class="fas fa-wind fa-2x mb-2"></i>
+                            <h3 class="h4 mb-2">Wind Status</h3>
                             <p class="mb-0 h6">{{ weather.wind_direction|default:"North" }} ({{ weather.wind_deg|default:"349" }}°)</p>
                             <p class="mb-0 h6">Gusts: {{ weather.wind_gust|default:"1.18" }} m/s</p>
                         </div>
@@ -59,8 +75,15 @@
                     <div class="col-6 d-flex">
                         <div class="glass-card w-100 d-flex flex-column justify-content-center p-3">
                             <i class="fas fa-compress-alt fa-2x mb-2"></i>
+                            <h3 class="h4 mb-2">Precipitation</h3>
+                            <p class="mb-1">Precipitation: {{ weather.precipitation|default:"3.37" }} mm/h ({{ weather.precipitation_mode|default:"rain" }})</p>
+                        </div>
+                    </div>
+                    <div class="col-6 d-flex">
+                        <div class="glass-card w-100 d-flex flex-column justify-content-center p-3">
+                            <i class="fas fa-compress-alt fa-2x mb-2"></i>
                             <h3 class="h4 mb-2">Pressure</h3>
-                            <p class="mb-0 display-6">{{ weather.pressure|default:"1015" }} hPa</p>
+                            <p class="mb-0 display-6">{{ weather.pressure }} hPa</p>
                         </div>
                     </div>
                     <div class="col-6 d-flex">
@@ -82,11 +105,10 @@
         </div>
         <div class="row mt-3">
             <div class="col-md-4">
-                <div class="glass-card p-3">
+                <div class="glass-card p-3"><br>
                     <h3 class="h4 mb-2">Additional Info</h3>
                     <p class="mb-1">Clouds: {{ weather.clouds|default:"100" }}% ({{ weather.cloud_name|default:"overcast clouds" }})</p>
-                    <p class="mb-1">Visibility: {{ weather.visibility|default:"10000" }} m</p>
-                    <p class="mb-1">Precipitation: {{ weather.precipitation|default:"3.37" }} mm/h ({{ weather.precipitation_mode|default:"rain" }})</p>
+                    <p class="mb-1">Visibility: {{ weather.visibility|default:"10000" }} m</p><br>
                 </div>
             </div>
             <div class="col-md-4">
@@ -94,12 +116,11 @@
                     <h3 class="h4 mb-2">Location</h3>
                     <p class="mb-1">Longitude: {{ weather.lon|default:"10.99" }}</p>
                     <p class="mb-1">Latitude: {{ weather.lat|default:"44.34" }}</p>
-                    <p class="mb-1">Timezone: UTC {{ weather.timezone|default:"+02:00" }}</p>
+                    <p class="mb-1">Timezone: UTC {{ weather.timezone|default:"+02:00" }}</p><br>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="glass-card p-3">
-                    <h3 class="h4 mb-2">About</h3>
                     <p class="mb-1">Developer: Jonald Sabordo</p>
                     <p class="mb-1">API: OpenWeather</p>
                     <p class="mb-1">Date: {% now "F j, Y" %}</p>

@@ -4,39 +4,33 @@ document.addEventListener('DOMContentLoaded', function() {
     const tempMaxElement = document.querySelector('.temp-max');
     const tempMinElement = document.querySelector('.temp-min');
     const unitButtons = document.querySelectorAll('[data-unit]');
+    const citySearchForm = document.getElementById('citySearchForm');
 
-    function kelvinToCelsius(kelvin) {
-        return kelvin - 273.15;
+    function celsiusToFahrenheit(celsius) {
+        return (celsius * 9/5) + 32;
     }
 
-    function kelvinToFahrenheit(kelvin) {
-        return (kelvin - 273.15) * 9/5 + 32;
+    function fahrenheitToCelsius(fahrenheit) {
+        return (fahrenheit - 32) * 5/9;
     }
 
-    function updateTemperature(element, kelvin, unit) {
-        let temperature;
-        switch(unit) {
-            case 'C':
-                temperature = kelvinToCelsius(kelvin);
-                break;
-            case 'F':
-                temperature = kelvinToFahrenheit(kelvin);
-                break;
-            default:
-                temperature = kelvin;
+    function updateTemperature(element, celsius, unit) {
+        let temperature = parseFloat(celsius);
+        if (unit === 'F') {
+            temperature = celsiusToFahrenheit(temperature);
         }
-        element.textContent = `${temperature.toFixed(2)}°${unit}`;
+        element.textContent = `${temperature.toFixed(1)}°${unit}`;
     }
 
     function updateAllTemperatures(unit) {
         const elements = [
-            { el: temperatureElement, kelvin: parseFloat(temperatureElement.dataset.kelvin) },
-            { el: feelsLikeElement, kelvin: parseFloat(feelsLikeElement.dataset.kelvin) },
-            { el: tempMaxElement, kelvin: parseFloat(tempMaxElement.dataset.kelvin) },
-            { el: tempMinElement, kelvin: parseFloat(tempMinElement.dataset.kelvin) }
+            { el: temperatureElement, celsius: parseFloat(temperatureElement.dataset.celsius) },
+            { el: feelsLikeElement, celsius: parseFloat(feelsLikeElement.dataset.celsius) },
+            { el: tempMaxElement, celsius: parseFloat(tempMaxElement.dataset.celsius) },
+            { el: tempMinElement, celsius: parseFloat(tempMinElement.dataset.celsius) }
         ];
 
-        elements.forEach(item => updateTemperature(item.el, item.kelvin, unit));
+        elements.forEach(item => updateTemperature(item.el, item.celsius, unit));
     }
 
     unitButtons.forEach(button => {
@@ -48,7 +42,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Initialize with Celsius
+    citySearchForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        this.submit();
+    });
     updateAllTemperatures('C');
 });
 

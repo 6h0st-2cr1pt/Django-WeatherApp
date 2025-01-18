@@ -4,7 +4,7 @@ from django.conf import settings
 from datetime import datetime
 
 def get_weather_data(city):
-    api_key = "91f607409966c29f4f4191f97ee5ed19"
+    api_key = "" #  Paste your actual API key here
     base_url = "http://api.openweathermap.org/data/2.5/weather"
     
     params = {

@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const tempMinElement = document.querySelector('.temp-min');
     const unitButtons = document.querySelectorAll('[data-unit]');
     const citySearchForm = document.getElementById('citySearchForm');
+    const currentTimeDateElement = document.getElementById('currentTimeDate');
 
     function celsiusToFahrenheit(celsius) {
         return (celsius * 9/5) + 32;
@@ -33,6 +34,12 @@ document.addEventListener('DOMContentLoaded', function() {
         elements.forEach(item => updateTemperature(item.el, item.celsius, unit));
     }
 
+    function updateCurrentTimeDate() {
+        const now = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        currentTimeDateElement.textContent = now.toLocaleDateString('en-US', options);
+    }
+
     unitButtons.forEach(button => {
         button.addEventListener('click', function() {
             const unit = this.dataset.unit;
@@ -46,6 +53,10 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         this.submit();
     });
-    updateAllTemperatures('C');
-});
 
+    // Initialize with Celsius
+    updateAllTemperatures('C');
+    // Update current time and date
+    updateCurrentTimeDate();
+    setInterval(updateCurrentTimeDate, 1000); // Update every second
+});

@@ -1,5 +1,6 @@
 body {
-    background: linear-gradient(135deg, #00feba, #5b548a);
+    background: url("/static/weather/image/Background.jpg") no-repeat;
+    background-size: cover;
     color: #ffffff;
     font-family: 'Arial', sans-serif;
     min-height: 100vh;

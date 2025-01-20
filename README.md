@@ -29,7 +29,7 @@ This is a Django-based weather application that fetches and displays weather dat
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/yourusername/Django-weatherapp.git
+    git clone [ https://github.com/6h0st-2cr1pt/Django-WeatherApp.git ]
     cd Django-weatherapp
     ```
 

@@ -69,10 +69,10 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 ## Contact
 
-For any inquiries or feedback, please contact Jonald Sabordo at [ jonaldsabordo@gmail.com ]
+For any inquiries or feedback, please contact Jonald Sabordo at  jonaldsabordo@gmail.com 
 
 ## Socials
 
-- Facebook [ https://www.facebook.com/jonald.sabordo.1?mibextid=ZbWKwL ]
-- LinkedIn [ https://www.linkedin.com/in/jonald-sabordo-4414b3317/ ]
+- Facebook  https://www.facebook.com/jonald.sabordo.1?mibextid=ZbWKwL 
+- LinkedIn  https://www.linkedin.com/in/jonald-sabordo-4414b3317/ 
 

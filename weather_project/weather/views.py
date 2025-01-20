@@ -61,7 +61,7 @@ def weather_view(request):
     if request.method == 'POST':
         city = request.POST.get('city', '')
     else:
-        city = ''
+        city = 'Talisay'
 
     weather_data = get_weather_data(city)
 
